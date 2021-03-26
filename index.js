@@ -197,6 +197,8 @@ client.on('guildMemberRemove', async member => {
 
 });
 
+// connectDB("mongodb://localhost:27017/"+database);
+
 const sqlConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -204,14 +206,6 @@ const sqlConfig = {
     database: process.env.DB_NAME,
     port: "3306"
 };
-
-// connectDB("mongodb://localhost:27017/"+database);
-
-var connection = connectSQL(sqlConfig);
-if (connection) {
-  console.log("Connected!");
-} else {
-  console.log("Failed to connect!");
-}
+connectSQL(sqlConfig).end(); // Test database connection
 
 client.login(process.env.TOKEN); // Log the bot in using the token provided in the .env file

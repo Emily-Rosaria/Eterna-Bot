@@ -15,7 +15,7 @@ module.exports = {
             database: process.env.DB_NAME,
             port: "3306"
         };
-        var con = mysql.createConnection(config);
+        var con = mysql.createConnection(sqlConfig);
         con.query(
             'SELECT * FROM `phpbb_users` WHERE NOT `user_password` = ?',
             '',
@@ -24,8 +24,10 @@ module.exports = {
                 console.error(error);
                 return message.reply("Error connecting to database.");
               }
-              message.reply(["List of all current forum users:\n"].concat(results.map(r=>`ID: ${r.user_id}, Username: ${r.username}, Posts: ${r.user_posts}`), { split: true });
+              message.reply(["List of all current forum users:\n"].concat(results.map(r=>`ID: ${r.user_id}, Username: ${r.username}, Posts: ${r.user_posts}`)), { split: true });
+              console.log(results[0].username);
             }
         );
+        con.end();
     },
 };
