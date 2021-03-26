@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+var mysql = require('mysql');
 
 module.exports = function(config) {
     var con = mysql.createConnection(config);

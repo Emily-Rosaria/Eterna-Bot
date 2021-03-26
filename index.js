@@ -206,6 +206,11 @@ sqlConfig = {
 
 // connectDB("mongodb://localhost:27017/"+database);
 
-connectSQL(sqlConfig);
+var connection = connectSQL(sqlConfig);
+if (connection) {
+  console.log("Connected!");
+} else {
+  console.log("Failed to connect!");
+}
 
 client.login(process.env.TOKEN); // Log the bot in using the token provided in the .env file
