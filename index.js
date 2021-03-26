@@ -197,8 +197,8 @@ client.on('guildMemberRemove', async member => {
 
 });
 
-sqlConfig = {
-    host: "213.190.6.169",
+const sqlConfig = {
+    host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
