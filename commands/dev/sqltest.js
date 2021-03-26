@@ -21,11 +21,9 @@ module.exports = {
             '',
             function (error, results, fields) {
               if (error) {
-                console.error(error);
-                return message.reply("Error connecting to database.");
+                return message.reply("Error connecting to the remote database. Try again in a moment.");
               }
               message.reply(["List of all current forum users:\n"].concat(results.map(r=>`ID: ${r.user_id}, Username: ${r.username}, Posts: ${r.user_posts}`)), { split: true });
-              console.log(results[0].username);
             }
         );
         con.end();
