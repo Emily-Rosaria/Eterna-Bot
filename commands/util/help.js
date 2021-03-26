@@ -1,6 +1,7 @@
 /**
  * Runs the help command, explaining each available command to the user.
  */
+
 module.exports = {
     name: 'help',
     description: 'List all available commands, or info about a specific command.',
@@ -11,7 +12,8 @@ module.exports = {
     allowDM: true,
     async execute(message, args) {
         let gID = "dm";
-        const prefix = message.client.config.get(prefix)[0];
+        const config = require('./../../config.json');
+        const prefix = config.prefix[0];
         const { commands } = message.client;
         data = [];
         // Send help data about ALL commands

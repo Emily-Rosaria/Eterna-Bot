@@ -53,12 +53,6 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
-client.config = new Discord.Collection();
-
-for (const key of Object.keys(config)) {
-    client.config.set(key, config[key]);
-}
-
 const cooldowns = new Discord.Collection(); // Creates an empty list for storing timeouts so people can't spam with commands
 
 // Starts the bot and makes it begin listening for commands.
