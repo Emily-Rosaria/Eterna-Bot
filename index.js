@@ -27,8 +27,8 @@ const dev = config.perms.dev[0]; // my ID on Discord
 const mongoose = require("mongoose"); //database library
 
 const GuildData = require("./database/models/guilds.js"); // database with server configs
-const connectDB = require("./database/connectDB.js"); // Database connection
-var database = "eterna"; // Database name
+// const connectDB = require("./database/connectDB.js"); // Database connection
+// var database = "eterna"; // Database name
 
 const client = new Discord.Client({ retryLimit: 3, restRequestTimeout: 25000, partials: ['USER', 'GUILD_MEMBER'] }); // Initiates the client
 
@@ -195,5 +195,5 @@ client.on('guildMemberRemove', async member => {
 
 });
 
-connectDB("mongodb://localhost:27017/"+database);
+// connectDB("mongodb://localhost:27017/"+database);
 client.login(process.env.TOKEN); // Log the bot in using the token provided in the .env file
