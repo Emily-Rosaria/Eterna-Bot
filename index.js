@@ -58,6 +58,7 @@ const cooldowns = new Discord.Collection(); // Creates an empty list for storing
 // Starts the bot and makes it begin listening for commands.
 client.on('ready', async function() {
     client.bootTime = (new Date()).getTime();
+    client.config = config;
     client.user.setPresence({ activity: { type: 'PLAYING', name: 'in a World of Wonder' }, status: 'online' });
     console.log(`${client.user.username} is up and running! Launched at: ${(new Date()).toUTCString()}.`);
 });
