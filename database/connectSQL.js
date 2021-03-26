@@ -7,7 +7,7 @@ module.exports = function(config) {
         console.error('error connecting: ' + err.stack);
         return;
       }
-      console.log('connected as id ' + connection.threadId);
+      console.log('connected as id ' + con.threadId);
     });
     return con;
 }

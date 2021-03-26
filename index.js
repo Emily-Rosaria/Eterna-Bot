@@ -198,10 +198,11 @@ client.on('guildMemberRemove', async member => {
 });
 
 sqlConfig = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+    host: "213.190.6.169",
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: "3306"
 };
 
 // connectDB("mongodb://localhost:27017/"+database);
