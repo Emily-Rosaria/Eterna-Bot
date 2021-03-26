@@ -52,15 +52,7 @@ module.exports = {
         delete require.cache[require.resolve('./../../misc_functions/'+miscF.name)];
       });
 
-      console.log('Misc functions updated and cleaned! Now starting function loops (namely pokemon spawns).');
-
-      // Time to reset the pokemon stuff!
-      const pokeFunctions = fs.readdirSync('./pokemon/',{ withFileTypes: true }).filter((f)=>f.name.endsWith('.js'));
-      pokeFunctions.forEach((pokeF) => {
-        delete require.cache[require.resolve('./../../pokemon/'+pokeF.name)];
-      });
-
-      message.reply('Done! Pokemon and looping functions won\'t be updated and require a reboot. As do the database functions...');
+      message.reply('Done! All core functions should be updated!');
       /*
       const spawns = Object.keys(client.spawnloops);
       for (const spawn of spawns) {
