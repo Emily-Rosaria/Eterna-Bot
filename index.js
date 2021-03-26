@@ -26,7 +26,6 @@ const dev = config.perms.dev[0]; // my ID on Discord
 
 const mongoose = require("mongoose"); //database library
 
-const GuildData = require("./database/models/guilds.js"); // database with server configs
 // const connectDB = require("./database/connectDB.js"); // Database connection
 // var database = "eterna"; // Database name
 
