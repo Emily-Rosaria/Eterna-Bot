@@ -20,6 +20,7 @@ const Discord = require('discord.js');                  // Loads the discord API
 const Canvas = require('canvas'); // Pretty pictures
 const readline = require('readline');
 const {google} = require('googleapis');
+var cron = require('node-cron'); // run regular scheduled tasks
 
 const config = require('./config.json');
 
@@ -32,7 +33,7 @@ const connectSQL = require("./database/connectSQL.js"); // remote database conne
 // const connectDB = require("./database/connectDB.js"); // local database connection
 // var database = "eterna"; // Database name
 
-const client = new Discord.Client({ retryLimit: 3, restRequestTimeout: 25000, partials: ['USER', 'GUILD_MEMBER'] }); // Initiates the client
+const client = new Discord.Client({ws: { intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MESSAGE_TYPING', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_TYPING'] }, retryLimit: 3, restRequestTimeout: 25000, partials: ['USER', 'GUILD_MEMBER'] }); // Initiates the client
 
 client.commands = new Discord.Collection(); // Creates an empty list in the client object to store all commands
 const getAllCommands = function (dir, cmds) {
@@ -63,6 +64,14 @@ client.on('ready', async function() {
     client.bootTime = (new Date()).getTime();
     client.user.setPresence({ activity: { type: 'PLAYING', name: 'in a World of Wonder' }, status: 'online' });
     console.log(`${client.user.username} is up and running! Launched at: ${(new Date()).toUTCString()}.`);
+    cron.schedule('*/10 * * * *', async () => { // cron.schedule('*/10 * * * *', async () => {
+      var sync = require('./sync.js'); //update user roles/classes every 10 minutes
+      try {
+        sync(client);
+      } catch (err) {
+        console.error(err);
+      }
+    });
 });
 
 /**

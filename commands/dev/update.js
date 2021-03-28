@@ -52,6 +52,11 @@ module.exports = {
         delete require.cache[require.resolve('./../../misc_functions/'+miscF.name)];
       });
 
+      // Reset cache for sync thing.
+      delete require.cache[require.resolve('./../../sync.js')];
+
+      // Reset config
+      delete require.cache[require.resolve('./../../config.json')];
       message.reply('Done! All core functions should be updated!');
       /*
       const spawns = Object.keys(client.spawnloops);

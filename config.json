@@ -1,5 +1,6 @@
 {
   "prefix":["$","e!"],
+  "guild":"680191120772169738",
   "perms":{
     "dev":["247344219809775617"],
     "admin":["680191226628276334"],
@@ -7,5 +8,16 @@
     "donator":["-1"],
     "roleplayer":["824885361405591583"],
     "registered":["824885363793330238"]
+  },
+  "group_roles":{
+    "0":{"Name":"Unregistered","ID":"825621996791922718"},
+    "2":{"Name":"Registered","ID":"824885363793330238"},
+    "4":{"Name":"Lead Mods","ID":"680846753313980500","Sticky":true},
+    "5":{"Name":"Administrators","ID":"680191226628276334","Sticky":true},
+    "7":{"Name":"Newly Registered","ID":"825621153678753813"},
+    "8":{"Name":"Moderator","ID":"680846833349689424","Sticky":true},
+    "9":{"Name":"Roleplayers","ID":"824885361405591583"},
+    "10":{"Name":"Donators","ID":"825623608969789471","Sticky":true},
+    "11":{"Name":"Veterans","ID":"825622516570914857"}
   }
 }
