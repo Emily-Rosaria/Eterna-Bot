@@ -148,8 +148,12 @@ client.on('message', async message => {
       } else if (message.author.id != dev) {
         const roleCache = message.member.roles.cache; // get role cache
 
+        if (command.perms == "dev") {
+          return;
+        }
+
         // check perms for admin commands
-        if ((command.perms == "admin") && (!config.perms.admin.some(r => roleCache.has(r)) || !message.member.hasPermission("ADMINISTRATOR"))) {
+        else if ((command.perms == "admin") && !config.perms.admin.some(r => roleCache.has(r)) && !message.member.hasPermission("ADMINISTRATOR")) {
           return message.reply("You do not have the required permissions to use this command; this command is only for administrators.");
         }
 
