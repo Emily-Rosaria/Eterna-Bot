@@ -99,16 +99,14 @@ module.exports = async function(client) {
           const i = discord_IDs.indexOf(id);
           if (i > -1) {
             var roles = users[i].roles;
-            if (roles.includes("9")) {
-              const y = roles.indexOf("7");
-              if (z > -1) {
-                roles.splice(index, 1);
-              }
-            }
             const roleIDs = roles.map(r=>r.ID);
-            members.get(id).roles.add(roleIDs);
+            if (roleIDs.length > 0) {
+                members.get(id).roles.add(roleIDs);
+            }
             const remove = Object.keys(config.group_roles).filter(r=>!config.group_roles[r].Sticky && !roleIDs.includes(config.group_roles[r].ID)).map(r=>config.group_roles[r].ID);
-            members.get(id).roles.remove(remove);
+            if (remove.length > 0) {
+                members.get(id).roles.remove(remove);
+            }
           }
         }
       }));

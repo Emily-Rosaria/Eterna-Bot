@@ -199,9 +199,22 @@ client.on('message', async message => {
 });
 
 client.on('guildMemberAdd', async member => {
-
-  //welcome message
-
+  /*
+    var sqlConfig = {
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        port: "3306",
+        multipleStatements: true
+    };
+    var con = mysql.createConnection(sqlConfig);
+    const sql = [
+      'SELECT `provider`, `user_id`, `oauth_provider_id` FROM `phpbb_oauth_accounts` WHERE `provider` = "studio_discord" AND `oauth_provider_id` = '+member.id+'; ',
+      'SELECT `user_id`, `linked_user_id` FROM `phpbb_flerex_linkedaccounts`; ',
+      'SELECT `user_id`, `group_id` FROM `phpbb_user_group` WHERE NOT `group_id` = 6'
+    ].join('');
+    */
 });
 
 client.on('guildMemberRemove', async member => {
