@@ -94,18 +94,28 @@ module.exports = async function(client) {
         return temp;
       });
       const discord_IDs = users.map(u=>u.discordID);
-      client.guilds.fetch(config.guild).then(guild => guild.members.fetch({user: discord_IDs}).then(members => {
+      client.guilds.fetch(config.guild).then(guild => guild.members.fetch({user: discord_IDs}).then(async(members) => {
         for (const id of members.keyArray()) {
           const i = discord_IDs.indexOf(id);
           if (i > -1) {
             var roles = users[i].roles;
             const roleIDs = roles.map(r=>r.ID);
             if (roleIDs.length > 0) {
-                members.get(id).roles.add(roleIDs);
+                await members.get(id).roles.add(roleIDs);
             }
-            const remove = Object.keys(config.group_roles).filter(r=>!config.group_roles[r].Sticky && !roleIDs.includes(config.group_roles[r].ID)).map(r=>config.group_roles[r].ID);
+            const remove = Object.keys(config.group_roles).filter(r=>{
+              if (config.group_roles[r].Sticky) {
+                return false;
+              }
+              else if (users[i].group_IDs.includes(Number(r))) {
+                return false;
+              }
+              else {
+                return true;
+              }
+            }).map(r=>config.group_roles[r].ID);
             if (remove.length > 0) {
-                members.get(id).roles.remove(remove);
+                await members.get(id).roles.remove(remove);
             }
           }
         }
