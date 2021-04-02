@@ -11,7 +11,7 @@
   },
   "group_roles":{
     "0":{"Name":"Unregistered","ID":"825621996791922718"},
-    "2":{"Name":"Registered","ID":"824885363793330238"},
+    "2":{"Name":"Registered","ID":"824885363793330238","Sticky":true},
     "4":{"Name":"Lead Mods","ID":"680846753313980500","Sticky":true},
     "5":{"Name":"Administrators","ID":"680191226628276334","Sticky":true},
     "8":{"Name":"Moderator","ID":"680846833349689424","Sticky":true},
