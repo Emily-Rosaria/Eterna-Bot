@@ -18,13 +18,15 @@ async function listener(client) {
     } catch (err) {
       console.log("No entry listener message.");
     }
-    
+
     const filter = (reaction, user) => {
       return reaction.emoji.name == "✅";
     };
 
     if (!message || message.deleted) {
       return false;
+    } else {
+      message.react("✅");
     }
 
     const collector = message.createReactionCollector(filter, { time: 10*60*1000 }); // run for 10 minutes
