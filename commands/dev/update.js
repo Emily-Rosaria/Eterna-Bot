@@ -52,9 +52,10 @@ module.exports = {
         delete require.cache[require.resolve('./../../misc_functions/'+miscF.name)];
       });
 
-      // Reset cache for sync thing.
+      // Reset cache for sync thing and entry listener.
       delete require.cache[require.resolve('./../../sync.js')];
       delete require.cache[require.resolve('./../../newMember.js')];
+      delete require.cache[require.resolve('./../../entryListener.js')];
 
       // Reset config
       delete require.cache[require.resolve('./../../config.json')];

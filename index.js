@@ -29,9 +29,9 @@ const dev = config.perms.dev[0]; // my ID on Discord
 var mysql = require('mysql'); // remote SQL library
 const connectSQL = require("./database/connectSQL.js"); // remote database connection
 
-// const mongoose = require("mongoose"); // database library
-// const connectDB = require("./database/connectDB.js"); // local database connection
-// var database = "eterna"; // Database name
+const mongoose = require("mongoose"); // database library
+const connectDB = require("./database/connectDB.js"); // local database connection
+var database = "eterna"; // Database name for the local database
 
 const client = new Discord.Client({ws: { intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MESSAGE_TYPING', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_TYPING'] }, retryLimit: 3, restRequestTimeout: 25000}); // Initiates the client
 
@@ -72,6 +72,12 @@ client.on('ready', async function() {
         console.error(err);
       }
     });
+    try {
+      var entryListener = require('./entryListener.js'); // add new members on reaction to the checkmark
+      entryListener(client);
+    } catch (err) {
+      console.error(err);
+    }
 });
 
 /**
@@ -99,7 +105,7 @@ client.on('message', async message => {
     if(!command) return;
 
     // If the command requires arguments, make sure they're there.
-    if (command.args && !args.length) {
+    if (command.args && (!args.length || (command.args > args.length))) {
         let reply = 'That command requires more details!';
 
         // If we have details on how to use the args, provide them
@@ -212,7 +218,7 @@ client.on('guildMemberRemove', async member => {
 
 });
 
-// connectDB("mongodb://localhost:27017/"+database);
+connectDB("mongodb://localhost:27017/"+database);
 
 const sqlConfig = {
     host: process.env.DB_HOST,
