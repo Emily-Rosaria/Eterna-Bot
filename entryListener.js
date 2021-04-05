@@ -13,8 +13,9 @@ async function listener(client) {
 
     const guild = await client.guilds.fetch(config.guild);
     const channel = guild.channels.resolve(doc.channelID);
+    var message = undefined;
     try {
-      const message = await channel.messages.fetch(doc.messageID);
+      message = await channel.messages.fetch(doc.messageID);
     } catch (err) {
       console.log("No entry listener message.");
     }
