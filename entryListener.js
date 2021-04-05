@@ -13,24 +13,33 @@ async function listener(client) {
 
     const guild = await client.guilds.fetch(config.guild);
     const channel = guild.channels.resolve(doc.channelID);
-    var message = undefined;
-    try {
-      message = await channel.messages.fetch(doc.messageID);
-    } catch (err) {
-      console.log("No entry listener message.");
-    }
+    var message = await channel.messages.fetch(doc.messageID).then(async (message)=>{
+      if (!message || message.deleted) {
+        return false;
+      } else {
+        await message.react("✅").then(()=>{
+          return true;
+        }).catch((err)=>{
+          console.error(err);
+          return false;
+        });
+        return message;
+      }
+    }).catch((err)=>{
+      console.error(err);
+      return false;
+    });
 
     const filter = (reaction, user) => {
       return reaction.emoji.name == "✅";
     };
 
     if (!message || message.deleted) {
+      console.log("Couldn't find entry listener. Is it deleted?")
       return false;
-    } else {
-      message.react("✅");
     }
 
-    const collector = message.createReactionCollector(filter, { time: 10*60*1000 }); // run for 10 minutes
+    const collector = await message.createReactionCollector(filter, { time: 10*60*1000 }); // run for 10 minutes
 
     collector.on('collect', (reaction, user) => {
       const joinChannel = guild.channels.resolve(config.channels.joins);
