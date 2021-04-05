@@ -14,7 +14,7 @@ module.exports = {
         if (args[1].toLowerCase() == "entrylistener" || args[1].toLowerCase() == "entry") {
           const filter = {type:"entryListener",guildID:guildID};
           const update = {
-            _id: messageID,
+            messageID: messageID,
             channelID: channelID,
             guildID: guildID,
             type:"entryListener"

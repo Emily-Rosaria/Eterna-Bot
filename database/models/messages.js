@@ -3,7 +3,7 @@ const Schema = mongoose.Schema; // Define Schema method
 
 // Schema
 var MessagesSchema = new Schema({ // Create Schema
-    _id: {type: String, required: true}, // ID of message on Discord
+    messageID: {type: String, required: true}, // ID of message on Discord
     guildID: {type: String, required: true}, // ID of message's guild on Discord
     channelID: {type: String, required: true}, // ID of message's channel on Discord
     type: {type: String, default: ""}, // Type of message (i.e. is it a listener for reactions or?)
@@ -11,11 +11,7 @@ var MessagesSchema = new Schema({ // Create Schema
 });
 
 MessagesSchema.virtual('id').get(function() {
-  return this._id;
-});
-
-MessagesSchema.virtual('messageID').get(function() {
-  return this._id;
+  return this.messageID;
 });
 
 // Model
