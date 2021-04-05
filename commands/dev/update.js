@@ -54,24 +54,10 @@ module.exports = {
 
       // Reset cache for sync thing.
       delete require.cache[require.resolve('./../../sync.js')];
+      delete require.cache[require.resolve('./../../newMember.js')];
 
       // Reset config
       delete require.cache[require.resolve('./../../config.json')];
       message.reply('Done! All core functions should be updated!');
-      /*
-      const spawns = Object.keys(client.spawnloops);
-      for (const spawn of spawns) {
-        client.clearTimeout(client.spawnloops[spawn]);
-        client.spawnloops.delete(spawn);
-        client.spawnloops.array();
-      }
-      const reSpawn = require('./../../pokemon/loadspawners.js');
-      x = async () => {
-        await reSpawn(client);
-        console.log('Done! Pokemon and looping functions should begin shortly...');
-        message.reply('Done! Pokemon and looping functions should begin shortly...');
-      }
-      x();
-      */
     },
 };

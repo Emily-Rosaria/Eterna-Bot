@@ -21,7 +21,7 @@ const Canvas = require('canvas'); // Pretty pictures
 const readline = require('readline');
 const {google} = require('googleapis');
 var cron = require('node-cron'); // run regular scheduled tasks
-
+var newMember = require('./newMember.js'); // new member join code
 const config = require('./config.json');
 
 const dev = config.perms.dev[0]; // my ID on Discord
@@ -33,7 +33,7 @@ const connectSQL = require("./database/connectSQL.js"); // remote database conne
 // const connectDB = require("./database/connectDB.js"); // local database connection
 // var database = "eterna"; // Database name
 
-const client = new Discord.Client({ws: { intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MESSAGE_TYPING', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_TYPING'] }, retryLimit: 3, restRequestTimeout: 25000, partials: ['USER', 'GUILD_MEMBER'] }); // Initiates the client
+const client = new Discord.Client({ws: { intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MESSAGE_TYPING', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_TYPING'] }, retryLimit: 3, restRequestTimeout: 25000}); // Initiates the client
 
 client.commands = new Discord.Collection(); // Creates an empty list in the client object to store all commands
 const getAllCommands = function (dir, cmds) {
@@ -199,22 +199,11 @@ client.on('message', async message => {
 });
 
 client.on('guildMemberAdd', async member => {
-  /*
-    var sqlConfig = {
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
-        port: "3306",
-        multipleStatements: true
-    };
-    var con = mysql.createConnection(sqlConfig);
-    const sql = [
-      'SELECT `provider`, `user_id`, `oauth_provider_id` FROM `phpbb_oauth_accounts` WHERE `provider` = "studio_discord" AND `oauth_provider_id` = '+member.id+'; ',
-      'SELECT `user_id`, `linked_user_id` FROM `phpbb_flerex_linkedaccounts`; ',
-      'SELECT `user_id`, `group_id` FROM `phpbb_user_group` WHERE NOT `group_id` = 6'
-    ].join('');
-    */
+    try {
+      newMember(member);
+    } catch(err) {
+      console.error(err);
+    }
 });
 
 client.on('guildMemberRemove', async member => {

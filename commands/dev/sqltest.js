@@ -8,24 +8,12 @@ module.exports = {
     allowDM: true,
     usage: '', // Help text to explain how to use the command (if it had any arguments)
     execute(message, args) {
-        const sqlConfig = {
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME,
-            port: "3306"
-        };
-        var con = mysql.createConnection(sqlConfig);
-        con.query(
-            'SELECT * FROM `phpbb_users` WHERE NOT `user_password` = ?',
-            '',
-            function (error, results, fields) {
-              if (error) {
-                return message.reply("Error connecting to the remote database. Try again in a moment.");
-              }
-              message.reply(["List of all current forum users:\n"].concat(results.map(r=>`ID: ${r.user_id}, Username: ${r.username}, Posts: ${r.user_posts}`)), { split: true });
-            }
-        );
-        con.end();
+        var userSync = require('./../../newMember.js');
+        try {
+          userSync(message.member);
+        }
+        catch(err) {
+          console.error(err);
+        }
     },
 };
