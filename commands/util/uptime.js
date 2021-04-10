@@ -1,7 +1,7 @@
 module.exports = {
   name: 'uptime', // The name of the command
   description: 'Shows how long the bot has been running without incident.', // The description of the command (for help text)
-  perms: 'basic',
+  perms: false,
   aliases: ['boottime'],
   args: false,
   allowDM: true,
